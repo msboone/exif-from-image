@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>exif-from-image Demo</title>
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../exif-from-image.html">
+    <link rel="import" href="../../iron-flex-layout/iron-flex-layout.html">
+
+    <style is="custom-style">
+      .container {
+        @apply(--layout-horizontal);
+      }
+
+      #picdata {
+          margin-left: 5%;
+      }
+
+      #picdata div {
+        margin-bottom: 5px;
+      }
+
+      img {
+        width: 200px;
+        height: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <template is="dom-bind">
+      <p>Click on the image to see its associated exif data:</p>
+      <exif-from-image imgpath="{{imgpath}}"></exif-from-image>
+
+      <div class="container">
+          <div><img id="dog" src="dog.jpg"></div>
+          <div><img id="burger" src="blah.jpg"></div>
+          <div id="picdata"></div>
+      </div>
+
+      <script>
+         var datadiv = document.getElementById('picdata');
+         var exifcomponent = document.querySelector('exif-from-image');
+
+         document.querySelector('exif-from-image').addEventListener('exifdata-available',function(d) {
+           setDataDiv(datadiv,d.detail);
+         });
+
+
+         document.getElementById("dog").addEventListener('click', function() {
+           exifcomponent.imgpath = "dog.jpg";
+         });
+
+         document.getElementById("burger").addEventListener('click', function() {
+           exifcomponent.imgpath = "blah.jpg";
+         });
+
+         function setDataDiv(datadiv,thedata) {
+           datadiv.innerHTML = "";
+        
+           for (var key in thedata) {
+               datadiv.innerHTML = datadiv.innerHTML + '<div><span>' + key +
+                        '</span> : <span>' + thedata[key] + '</span></div>';
+           }
+         }
+      </script>
+  </template>
+  </body>
+</html>
