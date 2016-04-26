@@ -1,0 +1,53 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="exif.html"></script>
+<!--
+A wrapper written in Polymer for exif-js (https://github.com/exif-js/exif-js) that exposes EXIF data for any local
+JPEG image.
+
+Example:
+
+    <exif-from-image imgpath="{{imgpath}}"></exif-from-image>
+
+@demo
+-->
+<dom-module id="exif-from-image">
+</dom-module>
+
+<script>
+(function() {
+  Polymer({
+
+    is: 'exif-from-image',
+
+    properties: {
+      imgpath: {
+        type: String,
+        value: "",
+        observer: "_imgChanged"
+      }
+    },
+
+    /**
+     * Fired when imgpath changes.
+     *
+     * @event exifdata-available
+     */
+
+    _imgChanged: function(newValue, oldValue) {
+      if(newValue) {
+        var self = this;
+
+        var img = new Image();
+        img.onload = function () {
+           EXIF.getData(this, function() {
+             if(this.exifdata) {
+              self.fire('exifdata-available',this.exifdata);
+             }
+           });
+        }
+        img.src = this.imgpath;
+      }
+    }
+  });
+})();
+</script>

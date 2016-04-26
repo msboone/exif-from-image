@@ -1,0 +1,29 @@
+{
+  "name": "exif-from-image",
+  "version": "0.0.1",
+  "authors": [
+    "Michael S. Boone <shane.boone@gmail.com>"
+  ],
+  "description": "A Polymer component that collects exif data from supplied image.",
+  "keywords": [
+    "web-component",
+    "web-components",
+    "polymer"
+  ],
+  "main": "exif-from-image.html",
+  "license": "MIT",
+  "homepage": "https://github.com/msboone/exif-from-image/",
+  "ignore": [
+    "/.*",
+    "/test/",
+    "/demo/"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0",
+    "exif-js": "exif-js/exif-js#^2.1.1"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "web-component-tester": "*"
+  }
+}
